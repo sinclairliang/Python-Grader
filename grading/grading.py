@@ -10,14 +10,26 @@ def readfile(address):
 
 wb = readfile("/Users/Sinclair/Dropbox/students_submissions/testsubmission.xlsx")
 ws = wb.active
-# sheet = wb.get_sheet_by_name('Sheet1')
-# print(ws['C9'].value)
 
-def output_certain_row(Row,start, end):
-    for column in range(start, end):
-        coor = str(Row)+str(column)
-        print(ws[coor].value)
-    return 0
 
-output_certain_row('E',3,10)
+def output_certain_cell(Row, column):
+    coor = str(Row)+str(column)
+    return (ws[coor].value)
+    # return 0
+
+# print(output_certain_cell('E',3))
+
+for x in range (5,10):
+    # print(output_certain_cell('E',x))
+    this_coor = 'F' + str(x)
+    if output_certain_cell('E',x) == None:
+        # ws.cell(6, x).value='X values'
+        ws[this_coor] = 'ss'
+        print(this_coor)
+    else:
+        ws[this_coor].value = "1"
+
+wb.save('write_example.xlsx')
+
+
 
