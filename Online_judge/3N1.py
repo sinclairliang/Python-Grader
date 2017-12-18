@@ -18,7 +18,7 @@ def threeNPlusOne(n):
         print("cycle = "+ str(cycle))
         exit()
     elif(n%2 != 0):
-        n = 4*n+1
+        n = 3*n+1
         print(n)
         cycle += 1
         threeNPlusOne(n)
