@@ -18,21 +18,23 @@ def output_certain_cell(Row, column):
     return (ws[coor].value)
 
 
-
 def grant_exist(row_alphabet, assign_points):
+    print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
     for x in range (7,162):
         # print(output_certain_cell('E',x))
         this_coor_alpha = chr(ord(row_alphabet)+1)
         this_coor = this_coor_alpha + str(x)
         student_coor = 'C' + str(x)
         if output_certain_cell(row_alphabet,x) == None:
-            # ws.cell(6, x).value='X values'
             ws[this_coor] = '0'
             print("student " + str(ws[student_coor].value) + " has no answer")
         else:
             ws[this_coor].value = assign_points
+    print("***Finish grading question: " + str(ws[row_alphabet+str(6)].value)+'***\n')
+
 
 def grant_include(row_alphabet, countain, assign_points):
+    print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
     for x in range (7,162):
         # print(output_certain_cell('E',x))
         this_coor_alpha = chr(ord(row_alphabet)+1)
@@ -46,6 +48,7 @@ def grant_include(row_alphabet, countain, assign_points):
         else:
             ws[this_coor] = '0'
             print("student " + str(ws[student_coor].value) + " has a wrong answer")
+    print("***Finish grading question: " + str(ws[row_alphabet+str(6)].value)+'***\n')
 
 grant_exist('E',20)
 grant_exist('H',2)
