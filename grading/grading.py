@@ -25,12 +25,21 @@ import sys
 
 def grant_exist(row_alphabet, assign_points):
     print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
+
+
     for x in range (7,162):
         # print(output_certain_cell('E',x))
         this_coor_alpha = chr(ord(row_alphabet)+1)
         this_coor = this_coor_alpha + str(x)
         student_coor = 'C' + str(x)
-        if output_certain_cell(row_alphabet,x) == None:
+
+        sys.stdout.write('\r')
+        # the exact output you're looking for:
+        sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
+        sys.stdout.flush()
+        time.sleep(0.2)
+
+        if output_certain_cell(row_alphabet,x) is None:
             ws[this_coor] = '0'
             # print("student " + str(ws[student_coor].value) + " has no answer")
         else:
@@ -57,16 +66,17 @@ def grant_include(row_alphabet, countain, assign_points):
 
 # grant_exist('E', 20)
 # grant_exist('H', 2)
-grant_exist('J', 1)
+# grant_exist('J', 1)
 # grant_include('L', '1.1', 1)
 
 
 # wb.save('write_example.xlsx')
 
-# for i in range(21):
-#     sys.stdout.write('\r')
-#     # the exact output you're looking for:
-#     sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
-#     sys.stdout.flush()
-#     time.sleep(0.25)
-#
+for i in range(1,21):
+    sys.stdout.write('\r')
+    # the exact output you're looking for:
+    sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
+    sys.stdout.flush()
+    time.sleep(0.25)
+
+
