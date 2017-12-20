@@ -5,29 +5,32 @@ import pyprind
 import openpyxl
 from openpyxl.compat import range
 from openpyxl.utils import get_column_letter
+import random
+
+
 def readfile(address):
     wb = openpyxl.load_workbook(address)
     return wb
 
-
 wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmission_test.xlsx")
 # wb = readfile("/Users/Sinclair/Dropbox/students_submissions/testsubmission.xlsx")
 ws = wb.active
+student_number = 162-7
+
+
+
+
 
 
 def output_certain_cell(row, column):
     coor = str(row)+str(column)
     return ws[coor].value
 
-import sys
-
-
 
 def grant_exist(row_alphabet, assign_points):
-    print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
-    n = 162-7
-    timesleep = 0.05
-    bar = pyprind.ProgBar(n, bar_char='=', monitor=True, update_interval=2,title=str(ws[row_alphabet+str(6)].value))
+    # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
+    timesleep = random.uniform(0.05,0.4)
+    bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2,title="Now grading "+str(ws[row_alphabet+str(6)].value))
     for x in range(7,162):
         # print(output_certain_cell('E',x))
         this_coor_alpha = chr(ord(row_alphabet)+1)
@@ -46,10 +49,9 @@ def grant_exist(row_alphabet, assign_points):
 
 
 def grant_include(row_alphabet, assign_points, countain, countain1=None, countain2=None, countain3=None):
-    print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
-    n = 162-7
-    timesleep = 0.05
-    bar = pyprind.ProgBar(n, monitor=True, title=str(ws[row_alphabet+str(6)].value))
+    # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
+    timesleep = random.uniform(0.05,0.4)
+    bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2,title="Now grading "+str(ws[row_alphabet+str(6)].value))
     for x in range(7, 162):
         # print(output_certain_cell('E',x))
         this_coor_alpha = chr(ord(row_alphabet)+1)
@@ -76,14 +78,10 @@ def grant_include(row_alphabet, assign_points, countain, countain1=None, countai
 
 
 
-grant_exist('E', 20)
-grant_exist('H', 2)
-grant_exist('J', 1)
-grant_include('L', 1, '1.1',)
-grant_include('R', 1, 'No','both','either','Both')
 
 
-wb.save('write_example.xlsx')
+
+
 
 # for i in range(1,21):
 #     sys.stdout.write('\r')
@@ -101,3 +99,26 @@ wb.save('write_example.xlsx')
 # for i in range(n):
 #     time.sleep(timesleep) # your computation here
 #     bar.update()
+
+
+# def startgrading():
+#     print("start grading")
+#
+#     grant_exist('E', 20)
+#     grant_exist('H', 2)
+#     grant_exist('J', 1)
+#     grant_include('L', 1, '1.1')
+#     grant_include('R', 1, 'No', 'both', 'either', 'Both')
+#     grant_include('T', 1, 'irefox', 'NT')
+#     grant_include('X', 1, 'yes', 'Yes', '200')
+#     grant_include('V', 1, '1.1')
+#     grant_include('Z', 1, '25')
+#     grant_include('AB', 1, '25')
+#     grant_include('AD', 1, '3446')
+#     grant_include('AF', 1, 'Apache', '2.2.3')
+#     grant_include('AH', 1, 'image')
+#
+#     print("Finished!")
+#     wb.save('write_example.xlsx')
+
+# startgrading()
