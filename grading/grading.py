@@ -27,6 +27,7 @@ def output_certain_cell(row, column):
     return ws[coor].value
 
 
+
 def grant_exist(row_alphabet, assign_points):
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
     timesleep = random.uniform(0.05,0.4)
@@ -77,6 +78,18 @@ def grant_include(row_alphabet, assign_points, countain, countain1=None, countai
     # return 0
 
 
+def next_column(current_column):
+    if len(current_column) == 1:
+        if (ord(current_column) - 64) <= 25:
+            return chr(ord(current_column)+1)
+        elif (ord(current_column) - 64) == 26:
+            return "AA"
+    elif len(current_column) == 2:
+        if current_column[-1] == "Z":
+            return chr(ord(current_column[0])+1) + "A"
+        else:
+            return current_column[0] + chr(ord(current_column[1])+1)
+
 
 
 
@@ -122,3 +135,7 @@ def grant_include(row_alphabet, assign_points, countain, countain1=None, countai
 #     wb.save('write_example.xlsx')
 
 # startgrading()
+
+# print(output_certain_cell('3', 8))
+
+print(next_column("BZ"))
