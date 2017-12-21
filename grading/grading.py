@@ -1,10 +1,10 @@
-import pandas as pd
+# import pandas as pd
 import time
 import sys
-import pyprind
+# import pyprind
 import openpyxl
 from openpyxl.compat import range
-from openpyxl.utils import get_column_letter
+# from openpyxl.utils import get_column_letter
 import random
 
 
@@ -15,14 +15,12 @@ def readfile(address):
 
 # address = input("Please type in address of the file you would like to grade?\n")
 # wb = readfile("")
-wb = readfile(input("Please type in address of the file you would like to grade (*.xlsx)?\n"))
-destination_address = input("Please type in the address you would like to save the file with score\n")
+# wb = readfile(input("Please type in address of the file you would like to grade (*.xlsx)?\n"))
+# destination_address = input("Please type in the address you would like to save the file with score\n")
 # wb = readfile("/Users/Sinclair/Dropbox/students_submissions/testsubmission.xlsx")
+wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmission_test.xlsx")
 ws = wb.active
 student_number = 162-7
-
-
-
 
 
 
@@ -61,10 +59,14 @@ def grant_exist(column_alphabet, assign_points):
     :return: None, modified the excel file
     """
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
-    timesleep = random.uniform(0.05, 0.4)
-    bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="Now grading "+str(ws[column_alphabet+str(6)].value))
+    timesleep = random.uniform(0.05, 0.1)
+    # bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="\nNow grading "+str(ws[column_alphabet+str(6)].value))
+    print("\nNow grading: "+str(ws[column_alphabet+str(6)].value))
     for x in range(7, 162):
         # print(output_certain_cell('E',x))
+        sys.stdout.write('\r')
+        sys.stdout.write("%.2f%%" % (((x+1)/(162))*100))
+        sys.stdout.flush()
         this_coor_alpha = next_column(column_alphabet)
         this_coor = this_coor_alpha + str(x)
         # student_coor = 'C' + str(x)
@@ -74,8 +76,11 @@ def grant_exist(column_alphabet, assign_points):
             # print("student " + str(ws[student_coor].value) + " has no answer")
         else:
             ws[this_coor].value = assign_points
-        bar.update()
-    print("\n***Finish grading question: " + str(ws[column_alphabet+str(6)].value)+'***\n')
+        # bar.update()
+    # print("\n***Finish grading question: " + str(ws[column_alphabet+str(6)].value)+'***\n')
+
+    print("\n✓")
+    # time.sleep(0.01)
     # print(bar)
     # return 0
 
@@ -91,13 +96,17 @@ def grant_include(column_alphabet, assign_points, contain, contain1=None, contai
     :return: None, modified the excel file
     """
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
-    timesleep = random.uniform(0.05,0.4)
-    bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="Now grading "+str(ws[column_alphabet+str(6)].value))
+    timesleep = random.uniform(0.05, 0.2)
+    # bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="\nNow grading "+str(ws[column_alphabet+str(6)].value))
+    print("\nNow grading: "+str(ws[column_alphabet+str(6)].value))
     for x in range(7, 162):
         # print(output_certain_cell('E',x))
         # this_coor_alpha = chr(ord(row_alphabet)+1)
         this_coor_alpha = next_column(column_alphabet)
         this_coor = this_coor_alpha + str(x)
+        sys.stdout.write('\r')
+        sys.stdout.write("%.2f%%" % (((x+1)/(162))*100))
+        sys.stdout.flush()
         # student_coor = 'C' + str(x)
         if output_certain_cell(column_alphabet, x) is None:
             ws[this_coor] = '0'
@@ -114,18 +123,14 @@ def grant_include(column_alphabet, assign_points, contain, contain1=None, contai
             ws[this_coor] = 0
             # print("student " + str(ws[student_coor].value) + " has a wrong answer")
         time.sleep(timesleep)
-        bar.update()
-    print("\n***Finish grading question: " + str(ws[column_alphabet+str(6)].value)+'***\n')
+        # bar.update()
+    # print("\n***Finish grading question: " + str(ws[column_alphabet+str(6)].value)+'***\n')
+    print("\n✓")
     # return 0
 
-# for i in range(1,21):
-#     sys.stdout.write('\r')
-#     # the exact output you're looking for:
-#     sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
-#     sys.stdout.flush()
-#     time.sleep(0.25)
 
-def startgrading():
+def gradinglab2():
+
     """
     The main() programme which conducts everthing
     :return: the graded excel file
@@ -145,13 +150,41 @@ def startgrading():
     grant_include('AD', 1, '3446')
     grant_include('AF', 1, 'Apache', '2.2.3')
     grant_include('AH', 1, 'image')
-
+    grant_include('AM', 1, '5')
+    grant_include('AO', 1, '5')
+    grant_include('AQ', 1, 'GET', 'POST')
+    grant_exist('AS', 1)
+    grant_include('AU', 1, 'educe')
+    grant_include('AY', 1, 'requesting')
+    grant_include('BE', 1, 'Protocol', 'protocol')
+    grant_include('BI', 1, '4')
+    grant_include('BK', 1, '2', '6')
+    grant_include('BM', 1, '5')
+    grant_include('BO', 1, '3')
+    time.sleep(0.01)
     print("Finished!")
     # "/Users/Sinclair/practice/grading/write_example.xlsx"
-    wb.save(destination_address+"result.xlsx")
+    # wb.save(destination_address+"result.xlsx")
+    wb.save("result.xlsx")
 
-startgrading()
+gradinglab2()
 
 
 
+list1 = [1,9,2,4,6,7,8,9,12,89,89,76]
 
+# for i in range(1,21):
+#     sys.stdout.write('\r')
+#     # the exact output you're looking for:
+#     sys.stdout.write("[%-20s] %f%%" % ('='*i, 5*i))
+#     sys.stdout.flush()
+#     time.sleep(0.25)
+#
+#
+# for i in range(len(list1)):
+#     sys.stdout.write('\r')
+#     sys.stdout.write("%.2f%%" % (((i+1)/len(list1))*100))
+#     sys.stdout.flush()
+#     time.sleep(0.25)
+
+# print(len(list1))
