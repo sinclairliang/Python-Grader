@@ -8,14 +8,23 @@ from openpyxl.utils import get_column_letter
 import random
 
 
+
 def readfile(address):
     wb = openpyxl.load_workbook(address)
     return wb
 
-wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmission_test.xlsx")
+# address = input("Please type in address of the file you would like to grade?\n")
+# wb = readfile("")
+wb = readfile(input("Please type in address of the file you would like to grade (*.xlsx)?\n"))
+destination_address = input("Please type in the address you would like to save the file with score\n")
 # wb = readfile("/Users/Sinclair/Dropbox/students_submissions/testsubmission.xlsx")
 ws = wb.active
 student_number = 162-7
+
+
+
+
+
 
 def next_column(current_column):
     """
@@ -61,16 +70,16 @@ def grant_exist(column_alphabet, assign_points):
         # student_coor = 'C' + str(x)
         time.sleep(timesleep)
         if output_certain_cell(column_alphabet, x) is None:
-            ws[this_coor] = '0'
+            ws[this_coor] = 0
             # print("student " + str(ws[student_coor].value) + " has no answer")
         else:
             ws[this_coor].value = assign_points
         bar.update()
-    print("***Finish grading question: " + str(ws[row_alphabet+str(6)].value)+'***\n')
+    print("\n***Finish grading question: " + str(ws[column_alphabet+str(6)].value)+'***\n')
     # print(bar)
     # return 0
 
-def grant_include(column_alphabet, assign_points, contain, countain1=None, countain2=None, countain3=None):
+def grant_include(column_alphabet, assign_points, contain, contain1=None, contain2=None, contain3=None):
     """
     to grade questions which would give points as long as some words match the answer
     :param column_alphabet: The column that the answers are in
@@ -89,27 +98,25 @@ def grant_include(column_alphabet, assign_points, contain, countain1=None, count
         # this_coor_alpha = chr(ord(row_alphabet)+1)
         this_coor_alpha = next_column(column_alphabet)
         this_coor = this_coor_alpha + str(x)
-        student_coor = 'C' + str(x)
+        # student_coor = 'C' + str(x)
         if output_certain_cell(column_alphabet, x) is None:
             ws[this_coor] = '0'
             # print("student " + str(ws[student_coor].value) + " has no answer")
-        elif str(countain) in str(output_certain_cell(column_alphabet,x)):
+        elif str(contain) in str(output_certain_cell(column_alphabet,x)):
             ws[this_coor].value = assign_points
-        elif str(countain1) in str(output_certain_cell(column_alphabet,x)):
+        elif str(contain1) in str(output_certain_cell(column_alphabet,x)):
             ws[this_coor].value = assign_points
-        elif str(countain2) in str(output_certain_cell(column_alphabet,x)):
+        elif str(contain2) in str(output_certain_cell(column_alphabet,x)):
             ws[this_coor].value = assign_points
-        elif str(countain3) in str(output_certain_cell(column_alphabet,x)):
+        elif str(contain3) in str(output_certain_cell(column_alphabet,x)):
             ws[this_coor].value = assign_points
         else:
-            ws[this_coor] = '0'
+            ws[this_coor] = 0
             # print("student " + str(ws[student_coor].value) + " has a wrong answer")
         time.sleep(timesleep)
         bar.update()
-    print("\n***Finish grading question: " + str(ws[row_alphabet+str(6)].value)+'***\n')
+    print("\n***Finish grading question: " + str(ws[column_alphabet+str(6)].value)+'***\n')
     # return 0
-
-
 
 # for i in range(1,21):
 #     sys.stdout.write('\r')
@@ -118,15 +125,12 @@ def grant_include(column_alphabet, assign_points, contain, countain1=None, count
 #     sys.stdout.flush()
 #     time.sleep(0.25)
 
-
-
-
 def startgrading():
     """
     The main() programme which conducts everthing
     :return: the graded excel file
     """
-    print("Grading is starting...")
+    print("Grading initialised...")
     time.sleep(0.01)
     grant_exist('E', 20)
     grant_exist('H', 2)
@@ -143,7 +147,8 @@ def startgrading():
     grant_include('AH', 1, 'image')
 
     print("Finished!")
-    wb.save('write_example.xlsx')
+    # "/Users/Sinclair/practice/grading/write_example.xlsx"
+    wb.save(destination_address+"result.xlsx")
 
 startgrading()
 
