@@ -1,10 +1,7 @@
-# import pandas as pd
 import time
 import sys
-# import pyprind
 import openpyxl
 from openpyxl.compat import range
-# from openpyxl.utils import get_column_letter
 import random
 
 
