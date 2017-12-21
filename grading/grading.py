@@ -17,9 +17,12 @@ wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmissio
 ws = wb.active
 student_number = 162-7
 
-
-
 def next_column(current_column):
+    """
+    to help the programme determine where the next column is, especially with 'Z' and double letter cases
+    :param current_column: the column that the programme is grading
+    :return: the next column,
+    """
     if len(current_column) == 1:
         if (ord(current_column) - 64) <= 25:
             return chr(ord(current_column)+1)
@@ -31,23 +34,33 @@ def next_column(current_column):
         else:
             return current_column[0] + chr(ord(current_column[1])+1)
 
-
-
 def output_certain_cell(row, column):
+    """
+    output the value that stores in certain cell
+    :param row: the desired row of such cell
+    :param column: the desired column of such cell
+    :return: the content in this cell
+    """
     coor = str(row)+str(column)
     return ws[coor].value
 
-def grant_exist(row_alphabet, assign_points):
+def grant_exist(column_alphabet, assign_points):
+    """
+    to grade questions which would give points as long as there is an answer existing
+    :param column_alphabet: The column that the answers are in
+    :param assign_points: points students should receive
+    :return: None, modified the excel file
+    """
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
     timesleep = random.uniform(0.05, 0.4)
-    bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2,title="Now grading "+str(ws[row_alphabet+str(6)].value))
-    for x in range(7,162):
+    bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="Now grading "+str(ws[column_alphabet+str(6)].value))
+    for x in range(7, 162):
         # print(output_certain_cell('E',x))
-        this_coor_alpha = next_column(row_alphabet)
+        this_coor_alpha = next_column(column_alphabet)
         this_coor = this_coor_alpha + str(x)
-        student_coor = 'C' + str(x)
+        # student_coor = 'C' + str(x)
         time.sleep(timesleep)
-        if output_certain_cell(row_alphabet,x) is None:
+        if output_certain_cell(column_alphabet, x) is None:
             ws[this_coor] = '0'
             # print("student " + str(ws[student_coor].value) + " has no answer")
         else:
@@ -57,26 +70,36 @@ def grant_exist(row_alphabet, assign_points):
     # print(bar)
     # return 0
 
-def grant_include(row_alphabet, assign_points, countain, countain1=None, countain2=None, countain3=None):
+def grant_include(column_alphabet, assign_points, contain, countain1=None, countain2=None, countain3=None):
+    """
+    to grade questions which would give points as long as some words match the answer
+    :param column_alphabet: The column that the answers are in
+    :param assign_points: points students should receive
+    :param contain: The word the answers should include
+    :param contain1: optional word the answers should include
+    :param contain2: optional word the answers should include
+    :param contain3: optional word the answers should include
+    :return: None, modified the excel file
+    """
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
     timesleep = random.uniform(0.05,0.4)
-    bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2,title="Now grading "+str(ws[row_alphabet+str(6)].value))
+    bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="Now grading "+str(ws[column_alphabet+str(6)].value))
     for x in range(7, 162):
         # print(output_certain_cell('E',x))
         # this_coor_alpha = chr(ord(row_alphabet)+1)
-        this_coor_alpha = next_column(row_alphabet)
+        this_coor_alpha = next_column(column_alphabet)
         this_coor = this_coor_alpha + str(x)
         student_coor = 'C' + str(x)
-        if output_certain_cell(row_alphabet, x) is None:
+        if output_certain_cell(column_alphabet, x) is None:
             ws[this_coor] = '0'
             # print("student " + str(ws[student_coor].value) + " has no answer")
-        elif str(countain) in str(output_certain_cell(row_alphabet,x)):
+        elif str(countain) in str(output_certain_cell(column_alphabet,x)):
             ws[this_coor].value = assign_points
-        elif str(countain1) in str(output_certain_cell(row_alphabet,x)):
+        elif str(countain1) in str(output_certain_cell(column_alphabet,x)):
             ws[this_coor].value = assign_points
-        elif str(countain2) in str(output_certain_cell(row_alphabet,x)):
+        elif str(countain2) in str(output_certain_cell(column_alphabet,x)):
             ws[this_coor].value = assign_points
-        elif str(countain3) in str(output_certain_cell(row_alphabet,x)):
+        elif str(countain3) in str(output_certain_cell(column_alphabet,x)):
             ws[this_coor].value = assign_points
         else:
             ws[this_coor] = '0'
@@ -85,12 +108,6 @@ def grant_include(row_alphabet, assign_points, countain, countain1=None, countai
         bar.update()
     print("\n***Finish grading question: " + str(ws[row_alphabet+str(6)].value)+'***\n')
     # return 0
-
-
-
-
-
-
 
 
 
@@ -105,6 +122,10 @@ def grant_include(row_alphabet, assign_points, countain, countain1=None, countai
 
 
 def startgrading():
+    """
+    The main() programme which conducts everthing
+    :return: the graded excel file
+    """
     print("Grading is starting...")
     time.sleep(0.01)
     grant_exist('E', 20)
