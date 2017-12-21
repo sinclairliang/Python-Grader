@@ -18,9 +18,12 @@ def readfile(address):
 # wb = readfile(input("Please type in address of the file you would like to grade (*.xlsx)?\n"))
 # destination_address = input("Please type in the address you would like to save the file with score\n")
 # wb = readfile("/Users/Sinclair/Dropbox/students_submissions/testsubmission.xlsx")
-wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmission_test.xlsx")
+wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab6StudentSubmissions_test.xlsx")
+# wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmission_test.xlsx")
 ws = wb.active
-student_number = 162-7
+first_row = int(input("what is the row number of first student?\n"))  # 8
+last_row = int(input("what is the row number of last student?\n")) # 161
+student_number = last_row - first_row + 2  # 161-8+2
 
 
 
@@ -61,11 +64,14 @@ def grant_exist(column_alphabet, assign_points):
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
     timesleep = random.uniform(0.05, 0.1)
     # bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="\nNow grading "+str(ws[column_alphabet+str(6)].value))
-    print("\nNow grading: "+str(ws[column_alphabet+str(6)].value))
-    for x in range(7, 162):
+    print("\nNow grading: "+str(ws[column_alphabet+str(first_row-2)].value))
+    for x in range(first_row-1, last_row+1):
         # print(output_certain_cell('E',x))
+
         sys.stdout.write('\r')
-        sys.stdout.write("%.2f%%" % (((x+1)/(162))*100))
+        # sys.stdout.write("%.2f%%" % (((x+1)/(162))*100))
+        # sys.stdout.write("%s %.2f%%" % ("Progress:" (((x+1)/(162))*100)))
+        sys.stdout.write("%s %.2f%%" % ("Progress:\t", (((x+1)/(last_row+1))*100)))
         sys.stdout.flush()
         this_coor_alpha = next_column(column_alphabet)
         this_coor = this_coor_alpha + str(x)
@@ -98,14 +104,15 @@ def grant_include(column_alphabet, assign_points, contain, contain1=None, contai
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
     timesleep = random.uniform(0.05, 0.2)
     # bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="\nNow grading "+str(ws[column_alphabet+str(6)].value))
-    print("\nNow grading: "+str(ws[column_alphabet+str(6)].value))
-    for x in range(7, 162):
+    print("\nNow grading: "+str(ws[column_alphabet+str(first_row-2)].value))
+    for x in range(first_row, last_row+1):
         # print(output_certain_cell('E',x))
         # this_coor_alpha = chr(ord(row_alphabet)+1)
         this_coor_alpha = next_column(column_alphabet)
         this_coor = this_coor_alpha + str(x)
         sys.stdout.write('\r')
-        sys.stdout.write("%.2f%%" % (((x+1)/(162))*100))
+        # sys.stdout.write("%.2f%%" % (((x+1)/(162))*100))
+        sys.stdout.write("%s %.2f%%" % ("Progress:\t", (((x+1)/(last_row+1))*100)))
         sys.stdout.flush()
         # student_coor = 'C' + str(x)
         if output_certain_cell(column_alphabet, x) is None:
@@ -138,40 +145,40 @@ def gradinglab2():
     print("Grading initialised...")
     time.sleep(0.01)
     grant_exist('E', 20)
-    grant_exist('H', 2)
-    grant_exist('J', 1)
-    grant_include('L', 1, '1.1')
-    grant_include('R', 1, 'No', 'both', 'either', 'Both')
-    grant_include('T', 1, 'irefox', 'NT')
-    grant_include('X', 1, 'yes', 'Yes', '200')
-    grant_include('V', 1, '1.1')
-    grant_include('Z', 1, '25')
-    grant_include('AB', 1, '25')
-    grant_include('AD', 1, '3446')
-    grant_include('AF', 1, 'Apache', '2.2.3')
-    grant_include('AH', 1, 'image')
-    grant_include('AM', 1, '5')
-    grant_include('AO', 1, '5')
-    grant_include('AQ', 1, 'GET', 'POST')
-    grant_exist('AS', 1)
-    grant_include('AU', 1, 'educe')
-    grant_include('AY', 1, 'requesting')
-    grant_include('BE', 1, 'Protocol', 'protocol')
-    grant_include('BI', 1, '4')
-    grant_include('BK', 1, '2', '6')
-    grant_include('BM', 1, '5')
-    grant_include('BO', 1, '3')
-    time.sleep(0.01)
-    print("Finished!")
-    # "/Users/Sinclair/practice/grading/write_example.xlsx"
+    # grant_exist('H', 2)
+    # grant_exist('J', 1)
+    # grant_include('L', 1, '1.1')
+    # grant_include('R', 1, 'No', 'both', 'either', 'Both')
+    # grant_include('T', 1, 'irefox', 'NT')
+    # grant_include('X', 1, 'yes', 'Yes', '200')
+    # grant_include('V', 1, '1.1')
+    # grant_include('Z', 1, '25')
+    # grant_include('AB', 1, '25')
+    # grant_include('AD', 1, '3446')
+    # grant_include('AF', 1, 'Apache', '2.2.3')
+    # grant_include('AH', 1, 'image')
+    # grant_include('AM', 1, '5')
+    # grant_include('AO', 1, '5')
+    # grant_include('AQ', 1, 'GET', 'POST')
+    # grant_exist('AS', 1)
+    # grant_include('AU', 1, 'educe')
+    # grant_include('AY', 1, 'requesting')
+    # grant_include('BE', 1, 'Protocol', 'protocol')
+    # grant_include('BI', 1, '4')
+    # grant_include('BK', 1, '2', '6')
+    # grant_include('BM', 1, '5')
+    # grant_include('BO', 1, '3')
+    # time.sleep(0.01)
+
     # wb.save(destination_address+"result.xlsx")
     wb.save("result.xlsx")
+    print("The result file has been successfully saved!")
+    print("Finished!")
+    return 0
 
-gradinglab2()
+# gradinglab2()
 
 
-
-list1 = [1,9,2,4,6,7,8,9,12,89,89,76]
 
 # for i in range(1,21):
 #     sys.stdout.write('\r')
@@ -188,3 +195,22 @@ list1 = [1,9,2,4,6,7,8,9,12,89,89,76]
 #     time.sleep(0.25)
 
 # print(len(list1))
+
+
+def gradinglab6():
+
+    """
+    The main() programme which conducts everthing
+    :return: the graded excel file
+    """
+    print("Grading initialised...")
+    time.sleep(0.01)
+    grant_include('D', 2, '24')
+
+    time.sleep(0.01)
+    wb.save("result.xlsx")
+    print("The result file has been successfully saved!")
+    print("Finished!")
+    return 0
+
+gradinglab6()
