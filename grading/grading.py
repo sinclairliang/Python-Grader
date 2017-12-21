@@ -8,10 +8,9 @@ from openpyxl.compat import range
 import random
 
 
-
 def readfile(address):
-    wb = openpyxl.load_workbook(address)
-    return wb
+    workbook = openpyxl.load_workbook(address)
+    return workbook
 
 # address = input("Please type in address of the file you would like to grade?\n")
 # wb = readfile("")
@@ -22,9 +21,8 @@ wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab6StudentSubmissio
 # wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmission_test.xlsx")
 ws = wb.active
 first_row = int(input("what is the row number of first student?\n"))  # 8
-last_row = int(input("what is the row number of last student?\n")) # 161
+last_row = int(input("what is the row number of last student?\n"))  # 161
 student_number = last_row - first_row + 2  # 161-8+2
-
 
 
 def next_column(current_column):
@@ -44,6 +42,7 @@ def next_column(current_column):
         else:
             return current_column[0] + chr(ord(current_column[1])+1)
 
+
 def output_certain_cell(row, column):
     """
     output the value that stores in certain cell
@@ -53,6 +52,7 @@ def output_certain_cell(row, column):
     """
     coor = str(row)+str(column)
     return ws[coor].value
+
 
 def grant_exist(column_alphabet, assign_points):
     """
@@ -90,6 +90,7 @@ def grant_exist(column_alphabet, assign_points):
     # print(bar)
     # return 0
 
+
 def grant_include(column_alphabet, assign_points, contain, contain1=None, contain2=None, contain3=None):
     """
     to grade questions which would give points as long as some words match the answer
@@ -118,13 +119,13 @@ def grant_include(column_alphabet, assign_points, contain, contain1=None, contai
         if output_certain_cell(column_alphabet, x) is None:
             ws[this_coor] = '0'
             # print("student " + str(ws[student_coor].value) + " has no answer")
-        elif str(contain) in str(output_certain_cell(column_alphabet,x)):
+        elif str(contain) in str(output_certain_cell(column_alphabet, x)):
             ws[this_coor].value = assign_points
-        elif str(contain1) in str(output_certain_cell(column_alphabet,x)):
+        elif str(contain1) in str(output_certain_cell(column_alphabet, x)):
             ws[this_coor].value = assign_points
-        elif str(contain2) in str(output_certain_cell(column_alphabet,x)):
+        elif str(contain2) in str(output_certain_cell(column_alphabet, x)):
             ws[this_coor].value = assign_points
-        elif str(contain3) in str(output_certain_cell(column_alphabet,x)):
+        elif str(contain3) in str(output_certain_cell(column_alphabet, x)):
             ws[this_coor].value = assign_points
         else:
             ws[this_coor] = 0
@@ -139,7 +140,7 @@ def grant_include(column_alphabet, assign_points, contain, contain1=None, contai
 def gradinglab2():
 
     """
-    The main() programme which conducts everthing
+    The main() programme which conducts everything
     :return: the graded excel file
     """
     print("Grading initialised...")
@@ -176,41 +177,28 @@ def gradinglab2():
     print("Finished!")
     return 0
 
-# gradinglab2()
-
-
-
-# for i in range(1,21):
-#     sys.stdout.write('\r')
-#     # the exact output you're looking for:
-#     sys.stdout.write("[%-20s] %f%%" % ('='*i, 5*i))
-#     sys.stdout.flush()
-#     time.sleep(0.25)
-#
-#
-# for i in range(len(list1)):
-#     sys.stdout.write('\r')
-#     sys.stdout.write("%.2f%%" % (((i+1)/len(list1))*100))
-#     sys.stdout.flush()
-#     time.sleep(0.25)
-
-# print(len(list1))
-
 
 def gradinglab6():
 
     """
-    The main() programme which conducts everthing
+    The main() programme which conducts everything
     :return: the graded excel file
     """
     print("Grading initialised...")
     time.sleep(0.01)
     grant_include('D', 2, '24')
-
+    grant_include('F', 1, '3')
+    grant_include('H', 1, '128.64.8.0')
     time.sleep(0.01)
     wb.save("result.xlsx")
     print("The result file has been successfully saved!")
     print("Finished!")
     return 0
 
-gradinglab6()
+
+def main():
+    # gradinglab2()
+    gradinglab6()
+
+
+main()
