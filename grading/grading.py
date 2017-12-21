@@ -19,6 +19,17 @@ student_number = 162-7
 
 
 
+def next_column(current_column):
+    if len(current_column) == 1:
+        if (ord(current_column) - 64) <= 25:
+            return chr(ord(current_column)+1)
+        elif (ord(current_column) - 64) == 26:
+            return "AA"
+    elif len(current_column) == 2:
+        if current_column[-1] == "Z":
+            return chr(ord(current_column[0])+1) + "A"
+        else:
+            return current_column[0] + chr(ord(current_column[1])+1)
 
 
 
@@ -26,15 +37,13 @@ def output_certain_cell(row, column):
     coor = str(row)+str(column)
     return ws[coor].value
 
-
-
 def grant_exist(row_alphabet, assign_points):
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
-    timesleep = random.uniform(0.05,0.4)
+    timesleep = random.uniform(0.05, 0.4)
     bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2,title="Now grading "+str(ws[row_alphabet+str(6)].value))
     for x in range(7,162):
         # print(output_certain_cell('E',x))
-        this_coor_alpha = chr(ord(row_alphabet)+1)
+        this_coor_alpha = next_column(row_alphabet)
         this_coor = this_coor_alpha + str(x)
         student_coor = 'C' + str(x)
         time.sleep(timesleep)
@@ -48,14 +57,14 @@ def grant_exist(row_alphabet, assign_points):
     # print(bar)
     # return 0
 
-
 def grant_include(row_alphabet, assign_points, countain, countain1=None, countain2=None, countain3=None):
     # print("Start grading question: " + str(ws[row_alphabet+str(6)].value))
     timesleep = random.uniform(0.05,0.4)
     bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2,title="Now grading "+str(ws[row_alphabet+str(6)].value))
     for x in range(7, 162):
         # print(output_certain_cell('E',x))
-        this_coor_alpha = chr(ord(row_alphabet)+1)
+        # this_coor_alpha = chr(ord(row_alphabet)+1)
+        this_coor_alpha = next_column(row_alphabet)
         this_coor = this_coor_alpha + str(x)
         student_coor = 'C' + str(x)
         if output_certain_cell(row_alphabet, x) is None:
@@ -78,17 +87,6 @@ def grant_include(row_alphabet, assign_points, countain, countain1=None, countai
     # return 0
 
 
-def next_column(current_column):
-    if len(current_column) == 1:
-        if (ord(current_column) - 64) <= 25:
-            return chr(ord(current_column)+1)
-        elif (ord(current_column) - 64) == 26:
-            return "AA"
-    elif len(current_column) == 2:
-        if current_column[-1] == "Z":
-            return chr(ord(current_column[0])+1) + "A"
-        else:
-            return current_column[0] + chr(ord(current_column[1])+1)
 
 
 
@@ -105,37 +103,29 @@ def next_column(current_column):
 
 
 
-# n = 100
-# timesleep = 0.05
-#
-# bar = pyprind.ProgBar(n)
-# for i in range(n):
-#     time.sleep(timesleep) # your computation here
-#     bar.update()
+
+def startgrading():
+    print("Grading is starting...")
+    time.sleep(0.01)
+    grant_exist('E', 20)
+    grant_exist('H', 2)
+    grant_exist('J', 1)
+    grant_include('L', 1, '1.1')
+    grant_include('R', 1, 'No', 'both', 'either', 'Both')
+    grant_include('T', 1, 'irefox', 'NT')
+    grant_include('X', 1, 'yes', 'Yes', '200')
+    grant_include('V', 1, '1.1')
+    grant_include('Z', 1, '25')
+    grant_include('AB', 1, '25')
+    grant_include('AD', 1, '3446')
+    grant_include('AF', 1, 'Apache', '2.2.3')
+    grant_include('AH', 1, 'image')
+
+    print("Finished!")
+    wb.save('write_example.xlsx')
+
+startgrading()
 
 
-# def startgrading():
-#     print("start grading")
-#
-#     grant_exist('E', 20)
-#     grant_exist('H', 2)
-#     grant_exist('J', 1)
-#     grant_include('L', 1, '1.1')
-#     grant_include('R', 1, 'No', 'both', 'either', 'Both')
-#     grant_include('T', 1, 'irefox', 'NT')
-#     grant_include('X', 1, 'yes', 'Yes', '200')
-#     grant_include('V', 1, '1.1')
-#     grant_include('Z', 1, '25')
-#     grant_include('AB', 1, '25')
-#     grant_include('AD', 1, '3446')
-#     grant_include('AF', 1, 'Apache', '2.2.3')
-#     grant_include('AH', 1, 'image')
-#
-#     print("Finished!")
-#     wb.save('write_example.xlsx')
 
-# startgrading()
 
-# print(output_certain_cell('3', 8))
-
-print(next_column("BZ"))
