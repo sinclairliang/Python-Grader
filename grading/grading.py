@@ -4,7 +4,6 @@ import openpyxl
 from openpyxl.compat import range
 import random
 
-
 def readfile(address):
     workbook = openpyxl.load_workbook(address)
     return workbook
@@ -14,12 +13,13 @@ def readfile(address):
 # wb = readfile(input("Please type in address of the file you would like to grade (*.xlsx)?\n"))
 # destination_address = input("Please type in the address you would like to save the file with score\n")
 # wb = readfile("/Users/Sinclair/Dropbox/students_submissions/testsubmission.xlsx")
-wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab6StudentSubmissions_test.xlsx")
-# wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmission_test.xlsx")
+# wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab6StudentSubmissions_test.xlsx")
+wb = readfile("/Users/Sinclair/Dropbox/students_submissions/Lab2StudentSubmission_test.xlsx")
 ws = wb.active
 first_row = int(input("what is the row number of first student?\n"))  # 8
 last_row = int(input("what is the row number of last student?\n"))  # 161
 student_number = last_row - first_row + 2  # 161-8+2
+
 
 
 def next_column(current_column):
@@ -38,6 +38,7 @@ def next_column(current_column):
             return chr(ord(current_column[0])+1) + "A"
         else:
             return current_column[0] + chr(ord(current_column[1])+1)
+
 
 
 def output_certain_cell(row, column):
@@ -63,11 +64,7 @@ def grant_exist(column_alphabet, assign_points):
     # bar = pyprind.ProgBar(student_number, bar_char='=', monitor=True, update_interval=2, title="\nNow grading "+str(ws[column_alphabet+str(6)].value))
     print("\nNow grading: "+str(ws[column_alphabet+str(first_row-2)].value))
     for x in range(first_row-1, last_row+1):
-        # print(output_certain_cell('E',x))
-
         sys.stdout.write('\r')
-        # sys.stdout.write("%.2f%%" % (((x+1)/(162))*100))
-        # sys.stdout.write("%s %.2f%%" % ("Progress:" (((x+1)/(162))*100)))
         sys.stdout.write("%s %.2f%%" % ("Progress:\t", (((x+1)/(last_row+1))*100)))
         sys.stdout.flush()
         this_coor_alpha = next_column(column_alphabet)
@@ -79,13 +76,9 @@ def grant_exist(column_alphabet, assign_points):
             # print("student " + str(ws[student_coor].value) + " has no answer")
         else:
             ws[this_coor].value = assign_points
-        # bar.update()
     # print("\n***Finish grading question: " + str(ws[column_alphabet+str(6)].value)+'***\n')
 
     print("\n✓")
-    # time.sleep(0.01)
-    # print(bar)
-    # return 0
 
 
 def grant_include(column_alphabet, assign_points, contain, contain1=None, contain2=None, contain3=None):
@@ -166,12 +159,12 @@ def gradinglab2():
     # grant_include('BK', 1, '2', '6')
     # grant_include('BM', 1, '5')
     # grant_include('BO', 1, '3')
-    # time.sleep(0.01)
+    time.sleep(0.01)
 
     # wb.save(destination_address+"result.xlsx")
     wb.save("result.xlsx")
-    print("The result file has been successfully saved!")
-    print("Finished!")
+
+
     return 0
 
 
@@ -194,8 +187,13 @@ def gradinglab6():
 
 
 def main():
-    # gradinglab2()
-    gradinglab6()
+    start_time = time.time()
+    gradinglab2()
+    # print("Finished! Time elapsed: " + str(time.time() - start_time))
+    print("The result file has been successfully saved!")
+    print("%s %.2fs" % ("Finish grading! Time elapsed:", (time.time() - start_time)))
+    # gradinglab6()
 
 
 main()
+
