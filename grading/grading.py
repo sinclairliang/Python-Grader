@@ -29,6 +29,7 @@ def next_column(current_column):
     :return: the next column,
     """
     if len(current_column) == 1:
+
         if (ord(current_column) - 64) <= 25:
             return chr(ord(current_column)+1)
         elif (ord(current_column) - 64) == 26:
