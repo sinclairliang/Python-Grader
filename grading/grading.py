@@ -16,7 +16,6 @@ last_row = int(input("what is the row number of last student?\n"))  # 161
 student_number = last_row - first_row + 2  # 161-8+2
 
 
-
 def next_column(current_column):
     """
     to help the programme determine where the next column is, especially with 'Z' and double letter cases
@@ -34,6 +33,8 @@ def next_column(current_column):
             return chr(ord(current_column[0])+1) + "A"
         else:
             return current_column[0] + chr(ord(current_column[1])+1)
+
+
 
 
 
@@ -114,6 +115,7 @@ def gradinglab2():
     :return: the graded excel file
     """
     print("Grading initialised...")
+
     time.sleep(0.01)
     grant_exist('E', 20)
     time.sleep(0.01)
