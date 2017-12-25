@@ -6,16 +6,25 @@ import openpyxl
 from openpyxl.compat import range
 import random
 
-def readfile(address):
-    workbook = openpyxl.load_workbook(address)
-    return workbook
 
-wb = readfile(input("Please type in address of the file you would like to grade (*.xlsx)?\n"))
-destination_address = input("Please type in the address you would like to save the file with score\n")
-ws = wb.active
-first_row = int(input("what is the row number of first student?\n"))  # 8
-last_row = int(input("what is the row number of last student?\n"))  # 161
-student_number = last_row - first_row + 2  # 161-8+2
+try:
+    origin_address = input("Please type in address of the file you would like to grade (*.xlsx)?\n")
+    workbook = openpyxl.load_workbook(origin_address)
+except:
+    print("This is not a valid address\n")
+    sys.exit()
+try:
+    destination_address = input("Please type in the address you would like to save the file with score\n"
+                                "Leave it blank if you want to store in the same directory.\n")
+except:
+    destination_address = origin_address
+    pass
+
+
+worksheet = workbook.active
+first_row = int(input("what is the row number of first student?\n"))
+last_row = int(input("what is the row number of last student?\n"))
+student_number = last_row - first_row + 2
 
 
 def next_column(current_column):
@@ -37,9 +46,6 @@ def next_column(current_column):
             return current_column[0] + chr(ord(current_column[1])+1)
 
 
-
-
-
 def output_certain_cell(row, column):
     """
     output the value that stores in certain cell
@@ -48,7 +54,7 @@ def output_certain_cell(row, column):
     :return: the content in this cell
     """
     coor = str(row)+str(column)
-    return ws[coor].value
+    return worksheet[coor].value
 
 
 def grant_exist(column_alphabet, assign_points):
@@ -59,7 +65,7 @@ def grant_exist(column_alphabet, assign_points):
     :return: None, modified the excel file
     """
     timesleep = random.uniform(0.05, 0.1)
-    print("\nNow grading: "+str(ws[column_alphabet+str(first_row-2)].value))
+    print("\nNow grading: "+str(worksheet[column_alphabet+str(first_row-2)].value))
     for x in range(first_row-1, last_row+1):
         sys.stdout.write('\r')
         sys.stdout.write("%s %.2f%%" % ("Progress:\t", (((x+1)/(last_row+1))*100)))
@@ -68,9 +74,9 @@ def grant_exist(column_alphabet, assign_points):
         this_coor = this_coor_alpha + str(x)
         time.sleep(timesleep)
         if output_certain_cell(column_alphabet, x) is None:
-            ws[this_coor] = 0
+            worksheet[this_coor] = 0
         else:
-            ws[this_coor].value = assign_points
+            worksheet[this_coor].value = assign_points
     print("\n✓")
 
 
@@ -87,7 +93,7 @@ def grant_include(column_alphabet, assign_points, contain, contain1=None, contai
     """
 
     timesleep = random.uniform(0.05, 0.2)
-    print("\nNow grading: "+str(ws[column_alphabet+str(first_row-2)].value))
+    print("\nNow grading: "+str(worksheet[column_alphabet+str(first_row-2)].value))
     for x in range(first_row, last_row+1):
         this_coor_alpha = next_column(column_alphabet)
         this_coor = this_coor_alpha + str(x)
@@ -95,17 +101,17 @@ def grant_include(column_alphabet, assign_points, contain, contain1=None, contai
         sys.stdout.write("%s %.2f%%" % ("Progress:\t", (((x+1)/(last_row+1))*100)))
         sys.stdout.flush()
         if output_certain_cell(column_alphabet, x) is None:
-            ws[this_coor] = '0'
+            worksheet[this_coor] = '0'
         elif str(contain) in str(output_certain_cell(column_alphabet, x)):
-            ws[this_coor].value = assign_points
+            worksheet[this_coor].value = assign_points
         elif str(contain1) in str(output_certain_cell(column_alphabet, x)):
-            ws[this_coor].value = assign_points
+            worksheet[this_coor].value = assign_points
         elif str(contain2) in str(output_certain_cell(column_alphabet, x)):
-            ws[this_coor].value = assign_points
+            worksheet[this_coor].value = assign_points
         elif str(contain3) in str(output_certain_cell(column_alphabet, x)):
-            ws[this_coor].value = assign_points
+            worksheet[this_coor].value = assign_points
         else:
-            ws[this_coor] = 0
+            worksheet[this_coor] = 0
         time.sleep(timesleep)
     print("\n✓")
 
@@ -121,16 +127,17 @@ def gradinglab2():
     time.sleep(0.01)
     grant_exist('E', 20)
     time.sleep(0.01)
-    wb.save(destination_address+"result.xlsx")
     return 0
 
 
 def main():
     start_time = time.time()
     gradinglab2()
+    workbook.save(destination_address+"result.xlsx")
+    # workbook.close()
     print("The result file has been successfully saved!")
-    print("%s %.2fs" % ("Finish grading! Time elapsed:", (time.time() - start_time)))
-
+    end_time = time.time()
+    print("%s %d m %.2f s " % ("Finish grading! Time elapsed:", int((end_time - start_time)/60), (end_time - start_time)%60))
 
 main()
 
