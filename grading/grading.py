@@ -57,33 +57,33 @@ def output_certain_cell(row, column):
     return worksheet[coor].value
 
 
-def grant_exist(column_alphabet, assign_points):
+def grant_exist(column_letter, assign_points):
     """
     to grade questions which would give points as long as there is an answer existing
-    :param column_alphabet: The column that the answers are in
+    :param column_letter: The column that the answers are in
     :param assign_points: points students should receive
     :return: None, modified the excel file
     """
     timesleep = random.uniform(0.05, 0.1)
-    print("\nNow grading: "+str(worksheet[column_alphabet+str(first_row-2)].value))
+    print("\nNow grading: "+str(worksheet[column_letter+str(first_row-2)].value))
     for x in range(first_row-1, last_row+1):
         sys.stdout.write('\r')
         sys.stdout.write("%s %.2f%%" % ("Progress:\t", (((x+1)/(last_row+1))*100)))
         sys.stdout.flush()
-        this_coor_alpha = next_column(column_alphabet)
+        this_coor_alpha = next_column(column_letter)
         this_coor = this_coor_alpha + str(x)
         time.sleep(timesleep)
-        if output_certain_cell(column_alphabet, x) is None:
+        if output_certain_cell(column_letter, x) is None:
             worksheet[this_coor] = 0
         else:
             worksheet[this_coor].value = assign_points
     print("\n✓")
 
 
-def grant_include(column_alphabet, assign_points, contain, contain1=None, contain2=None, contain3=None):
+def grant_include(column_letter, assign_points, contain, contain1=None, contain2=None, contain3=None):
     """
     to grade questions which would give points as long as some words match the answer
-    :param column_alphabet: The column that the answers are in
+    :param column_letter: The column that the answers are in
     :param assign_points: points students should receive
     :param contain: The word the answers should include
     :param contain1: optional word the answers should include
@@ -93,22 +93,22 @@ def grant_include(column_alphabet, assign_points, contain, contain1=None, contai
     """
 
     timesleep = random.uniform(0.05, 0.2)
-    print("\nNow grading: "+str(worksheet[column_alphabet+str(first_row-2)].value))
+    print("\nNow grading: "+str(worksheet[column_letter+str(first_row-2)].value))
     for x in range(first_row, last_row+1):
-        this_coor_alpha = next_column(column_alphabet)
+        this_coor_alpha = next_column(column_letter)
         this_coor = this_coor_alpha + str(x)
         sys.stdout.write('\r')
         sys.stdout.write("%s %.2f%%" % ("Progress:\t", (((x+1)/(last_row+1))*100)))
         sys.stdout.flush()
-        if output_certain_cell(column_alphabet, x) is None:
+        if output_certain_cell(column_letter, x) is None:
             worksheet[this_coor] = '0'
-        elif str(contain) in str(output_certain_cell(column_alphabet, x)):
+        elif str(contain) in str(output_certain_cell(column_letter, x)):
             worksheet[this_coor].value = assign_points
-        elif str(contain1) in str(output_certain_cell(column_alphabet, x)):
+        elif str(contain1) in str(output_certain_cell(column_letter, x)):
             worksheet[this_coor].value = assign_points
-        elif str(contain2) in str(output_certain_cell(column_alphabet, x)):
+        elif str(contain2) in str(output_certain_cell(column_letter, x)):
             worksheet[this_coor].value = assign_points
-        elif str(contain3) in str(output_certain_cell(column_alphabet, x)):
+        elif str(contain3) in str(output_certain_cell(column_letter, x)):
             worksheet[this_coor].value = assign_points
         else:
             worksheet[this_coor] = 0
