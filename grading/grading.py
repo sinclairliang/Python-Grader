@@ -5,7 +5,22 @@ import sys
 import openpyxl
 from openpyxl.compat import range
 import random
-from _colourize.banner import banner
+# from ._colourize.banner import banner
+
+
+def banner():
+    banner = '''
+    _____       _   _                        _____               _           
+    |  __ \     | | | |                      / ____|             | |          
+    | |__) |   _| |_| |__   ___  _ __ ______| |  __ _ __ __ _  __| | ___ _ __ 
+    |  ___/ | | | __| '_ \ / _ \| '_ \______| | |_ | '__/ _` |/ _` |/ _ \ '__|
+    | |   | |_| | |_| | | | (_) | | | |     | |__| | | | (_| | (_| |  __/ |   
+    |_|    \__, |\__|_| |_|\___/|_| |_|      \_____|_|  \__,_|\__,_|\___|_|   
+            __/ |                                                             
+           |___/                                                              
+   
+'''
+    return banner
 
 
 sys.stdout.write(banner())
@@ -28,6 +43,8 @@ worksheet = workbook.active
 first_row = int(input("what is the row number of first student?\n"))
 last_row = int(input("what is the row number of last student?\n"))
 student_number = last_row - first_row + 2
+
+
 
 
 def next_column(current_column):
@@ -176,5 +193,6 @@ def main():
     end_time = time.time()
     print("%s %d m %.2f s " % ("Finish grading! Time elapsed:", int((end_time - start_time)/60), (end_time - start_time)%60))
 
-main()
 
+if __name__ == '__main__':
+    main()
