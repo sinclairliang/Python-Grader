@@ -5,7 +5,10 @@ import sys
 import openpyxl
 from openpyxl.compat import range
 import random
+from _colourize.banner import banner
 
+
+sys.stdout.write(banner())
 
 try:
     origin_address = input("Please type in address of the file you would like to grade (*.xlsx)?\n")
@@ -164,6 +167,7 @@ def gradingfinalproject():
 
 
 def main():
+
     start_time = time.time()
     gradingfinalproject()
     workbook.save(destination_address+"result.xlsx")
