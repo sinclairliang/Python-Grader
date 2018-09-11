@@ -116,7 +116,7 @@ def grant_include(column_letter, assign_points, contain, contain1=None, contain2
     print("\n✓")
 
 
-def gradinglab2():
+def gradingfinalproject():
 
     """
     The main() programme which conducts everything
@@ -125,14 +125,47 @@ def gradinglab2():
     print("Grading initialised...")
 
     time.sleep(0.01)
-    grant_exist('E', 20)
+    grant_include("C", 1, "192.168.0.1")
+    grant_include("E", 1, "00:50:0F:B7:64:45")
+    grant_include("G", 1, "255.255.255.0", "/24")
+    grant_exist("I", 1)
+    grant_include("K", 1, "192.168.0")
+    grant_include("M", 1, "00:01:C7:33:65:16")
+    grant_include("K", 1, "192.168.0")
+    grant_include("M", 1, "00:01:C7:33:65:16")
+    grant_include("O", 1, "192.168.0")
+    grant_include("Q", 1, "00:02:16:17:D7:A2")
+    grant_include("S", 1, "192.168.0")
+    grant_exist("U", 1)
+    grant_include("W", 1, "192.168.0")
+    grant_include("Y", 1, "93", "7C")
+    grant_include("AE", 1, "Chotchkie")
+    grant_include("AG", 1, "all")
+    grant_include("AI", 1, "rinter")
+    grant_exist("AK", 5)
+    grant_exist("AM", 1)
+    grant_include("AO", 1, "68.10.20")
+    grant_include("AQ", 1, "255.255.255.0", "/24")
+    grant_include("AS", 1, "Jans")
+    grant_include("AU", 2, "67.10.14")
+    grant_include("AW", 1, "255.255.255.0", "/24")
+    grant_include("AY", 1, "68.10.20.1")
+    grant_include("BA", 1, "Santa", "Cruz")
+    grant_include("BC", 1, "255.255.255.0", "/24", "100.0.0.0")
+    grant_include("BE", 1, "255.255.255.0", "/24")
+    grant_include("BF", 1, "2", "3")
+    grant_exist("BI", 1)
+    grant_include("BQ", 1, "ICMP")
+    grant_include("BS", 1, "68.10.20")
+    grant_include("BU", 1, "67.10.14")
+
     time.sleep(0.01)
     return 0
 
 
 def main():
     start_time = time.time()
-    gradinglab2()
+    gradingfinalproject()
     workbook.save(destination_address+"result.xlsx")
     # workbook.close()
     print("The result file has been successfully saved!")
