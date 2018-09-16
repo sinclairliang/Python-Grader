@@ -1,5 +1,8 @@
 # python-grader
 **A cross-platform python based utility to automatically grade homework/assignments**
+=============
+
+---------------
 
 [![Screenshot_2018-09-12_09.34.24.jpg](https://s22.postimg.cc/nv51ur4ep/Screenshot_2018-09-12_09.34.24.jpg)](https://postimg.cc/image/7k4xyfrwt/)
 
