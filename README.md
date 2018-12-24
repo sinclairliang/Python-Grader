@@ -7,7 +7,7 @@
 [![Screenshot_2018-09-12_09.34.24.jpg](https://s22.postimg.cc/nv51ur4ep/Screenshot_2018-09-12_09.34.24.jpg)](https://postimg.cc/image/7k4xyfrwt/)
 
 ## ***Features***
-- show real time progrss in grading
+- show real time progress in grading
 - two modes of grading
 
 ## ***Requirements***
@@ -25,7 +25,7 @@
 	
 ## ***Download python-grader***
 
-You can download the latest version of udemy-dl by cloning the GitHub repository.
+You can download the latest version of python-grader by cloning the GitHub repository.
 
 	git clone https://github.com/sinclairliang/Python-Grader.git
 	
